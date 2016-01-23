@@ -10,15 +10,17 @@ We first load the data.
 
 Since the test data is in a different file, we can quietly leave it alone until we think we have a model that is good enough.
 
-Working with the trainingdata set, we remove some of the columns that hold a lot of invalid values.
+The steps for building the model are as follows:
 
-Next, we partition the trainingdata in a training set and a validation set. We will use this to estimate out-of-sample error rates.
+-Working with the trainingdata set, we remove some of the columns that hold a lot of invalid values.
 
-We first try a regression tree algorithm, with moderate success.
+-Next, we partition the trainingdata in a training set and a validation set. We will use this to estimate out-of-sample error rates.
 
-We try a second method, support vector machines (svm). This time the estimated out-of-sample error rate is very promising.
+-We first try a regression tree algorithm, with moderate success.
 
-We therefore apply this svm model on the 20 test samples, and obtain a 20/20 score.
+-We try a second method, support vector machines (svm). This time the estimated out-of-sample error rate is very promising.
+
+We apply this svm model on the 20 test samples, and obtain a 20/20 score.
 
 # Prerequisites
 Load the required libraries
@@ -86,7 +88,7 @@ validation = trainingdata[-inTrain,]
 ```
 
 # Attempt 1: Classification and Regression Tree
-
+Now that we've completed the inital model building steps of selecting relevant features and partioning the dataset, we come to the part of trying to determine which algorithm works best.
 We use regression trees, and the train function uses repeated cross validation to determine the best model. We also set the tuneLenth to 10 to ensure sufficient granularity in the tuning parameter grid. (The default of 3 is known to be a bit coarse)
 We plot the resulting decision tree.
 ```{r echo=TRUE,fig.widt=19,, Warning=F, Message=F}
@@ -100,7 +102,7 @@ validation1<-predict(modelFit1,validation,type="raw")
 confusionMatrix(validation1,validation$classe)
 ```
 
-An out-of-sample error rate of `r round(100*confusionMatrix(validation1,validation$classe)$overall['Accuracy'],0)`% is well below the 80% required to pass the test, so let's try another method.
+An out-of-sample error rate of `r round(100*confusionMatrix(validation1,validation$classe)$overall['Accuracy'],0)`% is well below the 80% required to pass the test, so let's try another algorithm.
 
 # Attempt 2: Support Vector Machine
 We build the SVM model, using default settings, and apply it again to the validation set.We print the confusion matrix.
