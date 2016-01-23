@@ -14,7 +14,7 @@ The steps for building the model are as follows:
 
 -Working with the trainingdata set, we remove some of the columns that hold a lot of invalid values.
 
--Next, we partition the trainingdata in a training set and a validation set. We will use this to estimate out-of-sample error rates.
+-Next, applying the good pracitce of cross-validation, we partition the trainingdata in a training set and a validation set. We will be able to cross-validate our model on this validation set, to estimate out-of-sample error rates.
 
 -We first try a regression tree algorithm, with moderate success.
 
